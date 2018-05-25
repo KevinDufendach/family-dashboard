@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AngularFireModule} from 'angularfire2';
-import {AngularFireStorageModule} from 'angularfire2/storage';
+import {CoreModule} from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
       storageBucket: 'dufendach-family.appspot.com',
       messagingSenderId: '5280635346'
     }),
-    AngularFireStorageModule
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
