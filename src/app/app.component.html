@@ -1,35 +1,20 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-</div>
 <div class="container">
   <div class="card">
     <div class="card-header">
-      Firebase Cloud Storage & Angular 5
-    </div>
-    <div *ngIf="afAuth.user | async as user; else showLogin" class="card-body">
-      <h1>Hello {{ user.displayName }}!</h1>
-      <button (click)="logout()">Logout</button>
-      <h5 class="card-title">Select a file for upload:</h5>
-      <input type="file" (change)="upload($event)" accept=".png,.jpg" />
-      <!--<div *ngIf="(downloadURL | async) as downloadSrc" class="alert alert-info" role="alert">-->
-        <!--File uploaded: <a [href]="downloadSrc">{{downloadSrc}}</a>-->
-      <!--</div>-->
-      <!--<div class="alert alert-info" role="alert">-->
-        <!--Pre: <pre *ngIf="(downloadURL | async) as downloadSrc">{{downloadSrc}}</pre>-->
-      <!--</div>-->
-      <!--<div>-->
-        <!--<pre>{{downloadURL}}</pre>-->
-      <!--</div>-->
-      <div class="progress">
-        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadProgress | async) + '%'" [attr.aria-valuenow]="(uploadProgress | async)" aria-valuemin="0" aria-valuemax="100"></div>
+      {{ title }}
+      <div *ngIf="afAuth.user | async as user; else showLogin" >
+        <h1>Hello {{ user.displayName }}!</h1>
+        <button (click)="logout()">Logout</button>
       </div>
+    </div>
 
-      <button (click)="AddDay()">Add a day!</button>
+    <div *ngIf="afAuth.user | async" class="card-body">
+      <h2 *ngFor="let child of children">{{child}}: {{getMinutes(child)}}</h2>
+
+      <button (click)="addEvent()">Add Helpful Event</button>
       <ul>
-        <li *ngFor="let day of days | async">
+        <li *ngFor="let day of events | async">
           <pre>{{ day | json }}</pre>
         </li>
       </ul>
@@ -44,8 +29,10 @@
       <p>Please login.</p>
       <button (click)="login()">Login with Google</button>
     </ng-template>
+
+    <h1>Router Outlet</h1>
+    <router-outlet></router-outlet>
   </div>
 </div>
 
-<h1>Router Outlet</h1>
-<router-outlet></router-outlet>
+
