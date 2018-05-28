@@ -12,9 +12,11 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^6.0.2",
+    "@angular/cdk": "^6.1.0",
     "@angular/common": "^6.0.2",
     "@angular/compiler": "^6.0.2",
     "@angular/core": "^6.0.2",
+    "@angular/flex-layout": "^6.0.0-beta.15",
     "@angular/forms": "^6.0.2",
     "@angular/http": "^6.0.2",
     "@angular/material": "^6.1.0",
@@ -22,12 +24,10 @@
     "@angular/platform-browser-dynamic": "^6.0.2",
     "@angular/router": "^6.0.2",
     "angularfire2": "^5.0.0-rc.10",
-    "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",
     "firebase": "^5.0.4",
     "rxjs": "^6.0.0",
-    "zone.js": "^0.8.26",
-    "@angular/cdk": "^6.1.0"
+    "zone.js": "^0.8.26"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^6.0.2",
