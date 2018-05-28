@@ -1,0 +1,7 @@
+<div *ngIf="afAuth.user | async" class="grid-container">
+  <mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-tile *ngFor="let card of cards" [colspan]="card.cols" [rowspan]="card.rows">
+      <app-child-card></app-child-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

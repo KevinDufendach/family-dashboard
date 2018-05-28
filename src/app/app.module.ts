@@ -6,10 +6,16 @@ import { AppComponent } from './app.component';
 import {AngularFireModule} from 'angularfire2';
 import {CoreModule} from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { ChildCardComponent } from './child-card/child-card.component';
+import {MaterialSharedModule} from './material-shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MainDashboardComponent,
+    ChildCardComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +29,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       messagingSenderId: '5280635346'
     }),
     CoreModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialSharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
