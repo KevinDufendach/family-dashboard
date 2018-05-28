@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {auth} from 'firebase/app';
 import {RewardService} from './reward.service';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -19,9 +18,5 @@ export class AppComponent {
   }
   logout() {
     this.afAuth.auth.signOut();
-  }
-
-  getChildren(): string[] {
-    return this.rewardService.getChildren();
   }
 }

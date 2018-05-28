@@ -1,3 +1,5 @@
+import {Person} from './person';
+
 export class MediaDay {
   events: MediaEvent[];
 }
@@ -10,8 +12,6 @@ export class MediaEvent {
   constructor(public child_id: string, public description: string, public value_change: number) {}
 }
 
-export class MediaChild {
-  id: string;
-  name: string;
+export class MediaChild extends Person {
   default_minutes: number;
 }

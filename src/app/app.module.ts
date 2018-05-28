@@ -4,18 +4,19 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AngularFireModule} from 'angularfire2';
-import {CoreModule} from './core/core.module';
+import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { ChildCardComponent } from './child-card/child-card.component';
-import {MaterialSharedModule} from './material-shared.module';
+import { AppMaterialModule } from './shared/app-material.module';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainDashboardComponent,
-    ChildCardComponent
+    ChildCardComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +31,7 @@ import {MaterialSharedModule} from './material-shared.module';
     }),
     CoreModule,
     BrowserAnimationsModule,
-    MaterialSharedModule
+    AppMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

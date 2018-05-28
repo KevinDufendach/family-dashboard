@@ -16,4 +16,4 @@ const SharedMaterialComponents = [
   exports: SharedMaterialComponents,
   declarations: []
 })
-export class MaterialSharedModule { }
+export class AppMaterialModule { }
