@@ -11,7 +11,7 @@ import {RewardService} from './reward.service';
 export class AppComponent {
   title = 'Dufendach Family Page';
 
-  constructor(public afAuth: AngularFireAuth, public rewardService: RewardService) { }
+  constructor(public afAuth: AngularFireAuth) { }
 
   login() {
     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());

@@ -1,4 +1,24 @@
 <h1>Family Settings</h1>
 
+<h2>People</h2>
+<mat-accordion>
+  <!--Each person has an expansion panel of their own-->
+  <mat-expansion-panel *ngFor="let person of peopleService.people | async">
+    <mat-expansion-panel-header>
+      {{person.displayName}}
+    </mat-expansion-panel-header>
+
+    <p>This is the primary content of the panel.</p>
+
+    <mat-action-row>
+      <button mat-button>Click me</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<div *ngIf="(peopleService.people | async)?.length == 0">No records found</div>
+<button mat-raised-button>Add a person</button>
+
+
+<pre>{{ peopleService.people | json }}</pre>
 
 <a mat-button routerLink="/dashboard">Return to Dashboard</a>
