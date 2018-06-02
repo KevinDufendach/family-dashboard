@@ -1,0 +1,47 @@
+<h1>Edit {{subject.displayName}} {{subject.id}} details:</h1>
+
+<form (ngSubmit)="onSubmit()" #editPersonForm="ngForm">
+  <div>
+    <mat-form-field>
+      <input matInput #subject.nameGiven placeholder="First Name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput #subject.nameFamily placeholder="Last Name">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput #subject.displayName placeholder="Display Name">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Birthdate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput type="number" placeholder="Default media minutes">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <button type="submit" mat-button [disabled]="!editPersonForm.valid">Submit</button>
+    <button type="button" mat-button (click)="editPersonForm.reset()">New Hero</button>
+  </div>
+</form>
+
+
+<p>{{subject.displayName}}</p>
+
+<!--
+default_minutes: 30
+id: string;
+  nameGiven: '';
+  nameFamily: '';
+  displayName: '';
+  birthdate: Date;
+  iconReference: string;
+-->

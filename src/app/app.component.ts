@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {auth} from 'firebase/app';
-import {RewardService} from './reward.service';
+import {SettingsDialogComponent} from './settings/settings-dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +12,23 @@ import {RewardService} from './reward.service';
 export class AppComponent {
   title = 'Dufendach Family Page';
 
-  constructor(public afAuth: AngularFireAuth) { }
+  constructor(public afAuth: AngularFireAuth, public dialog: MatDialog) { }
 
   login() {
     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
   }
   logout() {
     this.afAuth.auth.signOut();
+  }
+
+  // Settings dialog
+  openDialog() {
+    const dialogRef = this.dialog.open(SettingsDialogComponent, {
+      width: '800px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

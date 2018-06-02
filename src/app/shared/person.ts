@@ -1,7 +1,10 @@
 export class Person {
   id: string;
-  nameGiven: string;
-  nameFamily: string;
-  displayName: string;
+  nameGiven: '';
+  nameFamily: '';
+  displayName: '';
   birthdate: Date;
+  iconReference: string;
+
+  constructor() {}
 }

@@ -13,5 +13,5 @@ export class MediaEvent {
 }
 
 export class MediaChild extends Person {
-  default_minutes: number;
+  default_minutes: 30;
 }

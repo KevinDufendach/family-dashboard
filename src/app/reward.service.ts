@@ -3,6 +3,7 @@ import {MediaEvent} from './shared/models';
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/internal/operators';
+import {ThenableReference} from 'angularfire2/database-deprecated/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -67,10 +68,10 @@ export class RewardService {
     return (this.minutes_count[child_index]);
   }
 
-  addEvent(): void {
+  addEvent(): ThenableReference {
     const newEvent = new MediaEvent('johnny', 'helpful', 4);
 
-    this.eventsRef.push(newEvent);
+    return this.eventsRef.push(newEvent);
   }
 
   getEvents(): Observable<any[]> {

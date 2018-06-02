@@ -1,22 +1,13 @@
 <mat-toolbar color="primary">
-  <!--<button mat-icon-button [matMenuTriggerFor]="appMenu">-->
-    <!--<mat-icon>menu</mat-icon>-->
-  <!--</button>-->
-  <!--<mat-menu #appMenu="matMenu">-->
-    <!--<a href="/settings" mat-menu-item>-->
-      <!--<mat-icon>settings</mat-icon>-->
-      <!--<span>Settings</span>-->
-    <!--</a>-->
-  <!--</mat-menu>-->
-  <a mat-icon-button routerLink="/settings">
-    <mat-icon>settings</mat-icon>
+  <a mat-icon-button href="/dashboard">
+    <mat-icon>home</mat-icon>
   </a>
   <span>{{ title }}</span>
 
   <!-- This fills the remaining space of the current row -->
   <span class="example-fill-remaining-space"></span>
 
-  <div *ngIf="afAuth.user | async as user; else showLogin" >
+  <div *ngIf="afAuth.user | async as user; else showLogin">
     <button mat-button [matMenuTriggerFor]="userMenu">{{ user.displayName }}</button>
     <mat-menu #userMenu="matMenu">
       <button mat-menu-item (click)="logout()">
@@ -25,7 +16,9 @@
       </button>
     </mat-menu>
   </div>
-
+  <a mat-icon-button href="/settings">
+    <mat-icon>settings</mat-icon>
+  </a>
 
   <ng-template #showLogin>
     <button mat-button (click)="login()">Login with Google</button>
