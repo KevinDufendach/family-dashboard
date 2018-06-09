@@ -1,10 +1,12 @@
 export class Person {
+  key: string;
+
   constructor(
     public nameGiven: string = null,
     public nameFamily: string = null,
     public displayName: string = null,
     public birthdate: Date = null,
-    public customParameters = {},
+    public mediaMinutes: number = null,
     public iconReference: string = null,
   ) {}
 
@@ -14,8 +16,8 @@ export class Person {
       params['nameFamily'],
       params['displayName'],
       new Date(params['birthdate']),
-      params['customParameters'],
+      params['mediaMinutes'],
       params['iconReference'],
-    )
+    );
   }
 }

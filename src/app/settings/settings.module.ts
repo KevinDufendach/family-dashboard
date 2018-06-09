@@ -9,7 +9,7 @@ import {PersonListComponent} from './person-list/person-list.component';
 import {EditPersonComponent} from './edit-person/edit-person.component';
 import {AppMaterialModule} from '../shared/app-material.module';
 import {FormsModule} from '@angular/forms';
-import { EditPersonFormComponent } from '../edit-person-form/edit-person-form.component';
+import { EditPersonFormComponent } from './edit-person-form/edit-person-form.component';
 
 @NgModule({
   imports: [

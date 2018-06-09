@@ -28,9 +28,6 @@ export class PeopleService {
   }
 
   getPersonDetails(key: string): Observable<Person> {
-    // const myVar = this.peopleRef.valueChanges().
-    console.log('getting person details')
-
     return new Observable<Person>(subject => {
       this.people.subscribe( data => {
         console.log(data);
@@ -40,8 +37,8 @@ export class PeopleService {
           if (data2['key'] === key) {
             subject.next(Person.copyPerson(data2));
           }
-        })
-      })
+        });
+      });
     });
   }
 

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {RewardService} from '../reward.service';
 import {Observable} from 'rxjs';
+import {Person} from '../shared/person';
 
 @Component({
   selector: 'app-child-card',
@@ -8,6 +9,7 @@ import {Observable} from 'rxjs';
   styleUrls: ['./child-card.component.css']
 })
 export class ChildCardComponent implements OnInit {
+  @Input() child: Person;
 
   constructor(private rewardService: RewardService) { }
 

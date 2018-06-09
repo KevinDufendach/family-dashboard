@@ -1,3 +1,39 @@
-<p>
-  edit-person-form works!
-</p>
+<!-- <p>in edit-person component {{subject?.displayName}}</p> -->
+
+<form (ngSubmit)="onSubmit()" #editPersonForm="ngForm">
+  <div>
+    <mat-form-field>
+      <input matInput #nameGiven [(ngModel)]="subjectClone.nameGiven" placeholder="First Name" name="given">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput #nameFamily [(ngModel)]="subjectClone.nameFamily" placeholder="Last Name" name="last">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput #displayName [(ngModel)]="subjectClone.displayName" placeholder="Display Name" name="display">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput [(ngModel)]="subjectClone.birthdate" [matDatepicker]="picker" placeholder="Birthdate" name="birthdate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput type="number" [(ngModel)]="subjectClone.mediaMinutes" placeholder="Default media minutes"
+             name="mediaMinutes">
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="hasSubjectKey()">
+    <button type="submit" mat-raised-button class="mat-primary" [disabled]="!editPersonForm.valid">Save</button>
+    <button type="button" mat-raised-button (click)="reset()">Cancel</button>
+  </div>
+  <div *ngIf="!hasSubjectKey()">
+    <button type="submit" mat-raised-button class="mat-primary" [disabled]="!editPersonForm.valid">Submit</button>
+    <button type="button" mat-raised-button (click)="editPersonForm.reset()">Cancel</button>
+  </div>
+</form>

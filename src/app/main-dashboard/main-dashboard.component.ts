@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
+import {PeopleService} from '../people.service';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -14,5 +15,5 @@ export class MainDashboardComponent {
     { title: 'Card 4', cols: 1, rows: 1 }
   ];
 
-  constructor (public afAuth: AngularFireAuth) {}
+  constructor (public afAuth: AngularFireAuth, public peopleService: PeopleService) {}
 }
