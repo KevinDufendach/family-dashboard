@@ -86,6 +86,7 @@ const SharedMaterialComponents = [
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
+  MatFormFieldModule,
 ];
 
 @NgModule({

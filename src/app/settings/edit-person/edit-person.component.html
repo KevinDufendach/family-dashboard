@@ -1,29 +1,30 @@
-<h1>Edit {{subject.displayName}} {{subject.id}} details:</h1>
+<h1>Edit {{subject.displayName}} details:</h1>
 
 <form (ngSubmit)="onSubmit()" #editPersonForm="ngForm">
   <div>
     <mat-form-field>
-      <input matInput #subject.nameGiven placeholder="First Name">
+      <input matInput #nameGiven [(ngModel)]="subject.nameGiven" placeholder="First Name" name="given">
     </mat-form-field>
     <mat-form-field>
-      <input matInput #subject.nameFamily placeholder="Last Name">
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <input matInput #subject.displayName placeholder="Display Name">
+      <input matInput #nameFamily [(ngModel)]="subject.nameFamily" placeholder="Last Name" name="last">
     </mat-form-field>
   </div>
   <div>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Birthdate">
+      <input matInput #displayName [(ngModel)]="subject.displayName" placeholder="Display Name" name="display">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput [(ngModel)]="subject.birthdate" [matDatepicker]="picker" placeholder="Birthdate" name="birthdate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field>
-      <input matInput type="number" placeholder="Default media minutes">
+      <input matInput type="number" [(ngModel)]="subject.customParameters['defaultMinutes']" placeholder="Default media minutes"
+             name="mediaMinutes">
     </mat-form-field>
   </div>
 
@@ -36,12 +37,4 @@
 
 <p>{{subject.displayName}}</p>
 
-<!--
-default_minutes: 30
-id: string;
-  nameGiven: '';
-  nameFamily: '';
-  displayName: '';
-  birthdate: Date;
-  iconReference: string;
--->
+<textarea>{{subject | json}}</textarea>

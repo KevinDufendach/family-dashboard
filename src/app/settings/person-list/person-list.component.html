@@ -1,0 +1,19 @@
+<div class="person-list">
+  <mat-accordion>
+    <!--Each person has an expansion panel of their own-->
+    <mat-expansion-panel *ngFor="let person of peopleService.people | async">
+      <mat-expansion-panel-header>
+        {{person.displayName}}
+      </mat-expansion-panel-header>
+      
+      <p>This is the primary content of the panel.</p>
+      
+      <mat-action-row>
+        <a mat-button routerLink="/settings/{{person.key}}">Edit Person</a>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <div *ngIf="(peopleService.people | async)?.length == 0">No records found</div>
+  <a mat-raised-button routerLink="/settings/new">Create new person</a>
+  <router-outlet></router-outlet>
+</div>

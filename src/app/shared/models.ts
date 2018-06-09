@@ -13,5 +13,8 @@ export class MediaEvent {
 }
 
 export class MediaChild extends Person {
-  default_minutes: 30;
+  constructor(private defaultMinutes: number) {
+    super();
+    this.customParameters['defaultMinutes'] = defaultMinutes;
+  }
 }

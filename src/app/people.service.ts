@@ -2,18 +2,16 @@ import {Injectable} from '@angular/core';
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/internal/operators';
-import {MediaChild} from './shared/models';
+import {Person} from './shared/person';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PeopleService {
-  peopleRef: AngularFireList<MediaChild>;
-  people: Observable<MediaChild[]>;
+  peopleRef: AngularFireList<Person>;
+  people: Observable<Person[]>;
 
   constructor(private db: AngularFireDatabase) {
-    console.log('people service starting');
-
     this.peopleRef = db.list('people');
 
     this.people = this.peopleRef.snapshotChanges().pipe(
@@ -23,32 +21,42 @@ export class PeopleService {
     );
   }
 
-  createPerson(): Observable<MediaChild> {
-    const mc = new MediaChild();
-    mc.id = Math.round(Math.random() * 1000000 + 1).toString();
+  createPerson(): Observable<Person> {
+    const newPerson = new Person();
 
-    // this.peopleRef.push(mc);
-    return of(mc);
+    return of(newPerson);
   }
 
-  getPersonDetails(id: string): Observable<MediaChild> {
-    return new Observable<MediaChild>(subject => {
-      this.people.forEach(mc => {
+  getPersonDetails(key: string): Observable<Person> {
+    // const myVar = this.peopleRef.valueChanges().
+    console.log('getting person details')
 
-        console.log(mc);
+    return new Observable<Person>(subject => {
+      this.people.subscribe( data => {
+        console.log(data);
 
-        subject.next(new MediaChild());
-
-        // if (mc. === id) {
-        //   resolve(mc);
-        // }
-      });
+        data.forEach(data2 => {
+          console.log(data2);
+          if (data2['key'] === key) {
+            subject.next(Person.copyPerson(data2));
+          }
+        })
+      })
     });
   }
 
-  // createPerson(): MediaChild {
-  //   const mc = new MediaChild();
-  //   mc.id = (Math.random() * 1000000000 + 1).toString();
-  //   return mc;
-  // }
+  addPerson(person: Person): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const key = this.peopleRef.push(person).key;
+      resolve(key);
+    });
+  }
+
+  updatePerson(key: string, person: Person): Promise<void> {
+    return this.peopleRef.update(key, person);
+  }
+
+  removePerson(key: string): Promise<void> {
+    return this.peopleRef.remove(key);
+  }
 }

@@ -9,26 +9,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 import { ChildCardComponent } from './child-card/child-card.component';
 import { AppMaterialModule } from './shared/app-material.module';
-import { SettingsComponent } from './settings/settings.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { SettingsDialogComponent } from './settings/settings-dialog.component';
-import { EditPersonComponent } from './settings/edit-person/edit-person.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {SettingsModule} from './settings/settings.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MainDashboardComponent,
-    ChildCardComponent,
-    SettingsComponent,
-    SettingsDialogComponent,
-    EditPersonComponent
-  ],
-  entryComponents: [
-    SettingsDialogComponent
-  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -46,8 +33,15 @@ import {HttpClientModule} from '@angular/common/http';
     CoreModule,
     BrowserAnimationsModule,
     AppMaterialModule,
+    SettingsModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
+  declarations: [
+    AppComponent,
+    MainDashboardComponent,
+    ChildCardComponent,
+  ],
+  entryComponents: [],
   providers: [],
   bootstrap: [AppComponent]
 })
