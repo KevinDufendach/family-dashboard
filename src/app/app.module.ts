@@ -14,6 +14,8 @@ import { environment } from '../environments/environment';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {SettingsModule} from './settings/settings.module';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {AngularFireAuthModule} from 'angularfire2/auth';
 
 @NgModule({
   imports: [
@@ -22,19 +24,14 @@ import {SettingsModule} from './settings/settings.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AngularFireModule.initializeApp({
-      apiKey: 'AIzaSyA8iJM598aSOWNdFK1j-uDdhjZAohTfWt8',
-      authDomain: 'dufendach-family.firebaseapp.com',
-      databaseURL: 'https://dufendach-family.firebaseio.com',
-      projectId: 'dufendach-family',
-      storageBucket: 'dufendach-family.appspot.com',
-      messagingSenderId: '5280635346'
-    }),
     CoreModule,
     BrowserAnimationsModule,
     AppMaterialModule,
     SettingsModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
   ],
   declarations: [
     AppComponent,

@@ -12,9 +12,9 @@ export class MediaEvent {
   constructor(public child_id: string, public description: string, public value_change: number) {}
 }
 
-export class MediaChild extends Person {
-  constructor(private defaultMinutes: number) {
-    super();
-    this.mediaMinutes = defaultMinutes;
-  }
-}
+// export class MediaChild extends Person {
+//   constructor(private defaultMinutes: number) {
+//     super();
+//     this.mediaMinutes = defaultMinutes;
+//   }
+// }
