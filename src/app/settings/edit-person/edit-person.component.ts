@@ -46,7 +46,7 @@ export class EditPersonComponent implements OnInit {
     console.log('key is ' + this.subjectKey);
 
     if (this.hasSubjectKey()) {
-      return this.peopleService.createPerson();
+      return PeopleService.createPerson();
     } else {
       return this.peopleService.getPersonDetails(this.subjectKey);
     }

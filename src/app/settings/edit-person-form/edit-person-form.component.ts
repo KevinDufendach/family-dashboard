@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Person } from '../../shared/person';
-import {PeopleService, PersonId} from '../../people.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {Person} from '../../shared/person';
+import {PeopleService} from '../../people.service';
 
 @Component({
   selector: 'app-edit-person-form',
@@ -14,13 +14,17 @@ export class EditPersonFormComponent implements OnInit {
   subjectClone: Person;
   startDate = new Date(2010, 0, 1);
 
-  constructor(private peopleService: PeopleService) { }
+  constructor(private peopleService: PeopleService) {
+  }
 
   ngOnInit(): void {
     this.reset();
   }
 
   reset(): void {
+    console.log(this.subject);
+    console.log('Subject class: ' + this.subject.constructor.name);
+
     if (!this.subject) {
       this.subject = {};
     }
@@ -30,13 +34,14 @@ export class EditPersonFormComponent implements OnInit {
 
   onSubmit(): void {
     this.subject = this.subjectClone;
-    this.reset();
 
     if (this.hasSubjectKey()) {
       this.peopleService.updatePerson(this.id, this.subject);
     } else {
       this.peopleService.addPerson(this.subject);
     }
+
+    this.reset();
   }
 
   hasSubjectKey(): boolean {

@@ -1,12 +1,12 @@
 <div class="person-list">
   <mat-accordion>
     <!--Each person has an expansion panel of their own-->
-    <mat-expansion-panel *ngFor="let person of peopleService.people | async">
+    <mat-expansion-panel *ngFor="let person of peopleService.peopleIds | async">
       <mat-expansion-panel-header>
         {{person.displayName}}
         <!-- - {{person.id}}-->
       </mat-expansion-panel-header>
-      <app-edit-person-form [subject]='person'></app-edit-person-form>
+      <app-edit-person-form [id]="person.id" [subject]="person"></app-edit-person-form>
     </mat-expansion-panel>
 
     <mat-expansion-panel>

@@ -18,7 +18,7 @@ export class PersonDetailResolver implements Resolve<Person> {
     const key = route.paramMap.get('key');
 
     if (key === 'new') {
-      return this.personService.createPerson().pipe(
+      return PeopleService.createPerson().pipe(
         take(1),
         map(person => {
           if (person) {

@@ -33,8 +33,21 @@ export class PeopleService {
     this.afAuth.user.subscribe(
       user => {
         console.log('User: ' + user.uid);
-        this.peopleCollection = afs.collection<Person>('user/' + user.uid + '/people');
-        this.people = this.peopleCollection.valueChanges();
+        this.peopleCollection = afs.collection<Person>('users/' + user.uid + '/people');
+
+        console.log('type: ' + this.peopleCollection.constructor.name);
+
+        const collection$: Observable<Person[]> = this.peopleCollection.valueChanges();
+        collection$.subscribe(data => console.log(data) );
+
+        // const newPerson: Person = {
+        //   displayName: 'myNewPerson',
+        //   nameGiven: 'MyFirstName',
+        //   mediaMinutes: 30,
+        // };
+        // this.peopleCollection.add(newPerson);
+
+        // this.people = this.peopleCollection.valueChanges();
         console.log('subscribing to peopleCollection');
 
         this.peopleIds = this.peopleCollection.snapshotChanges().pipe(
@@ -52,7 +65,7 @@ export class PeopleService {
 
   }
 
-  createPerson(): Observable<Person> {
+  static createPerson(): Observable<Person> {
     const newPerson: Person = {};
 
     return of(newPerson);
