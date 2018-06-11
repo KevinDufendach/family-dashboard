@@ -3,27 +3,27 @@
 <form (ngSubmit)="onSubmit()" #editPersonForm="ngForm">
   <div>
     <mat-form-field>
-      <input matInput #nameGiven [(ngModel)]="subjectClone.nameGiven" placeholder="First Name" name="given">
+      <input matInput #nameGiven [(ngModel)]="first" placeholder="First Name" name="given">
     </mat-form-field>
     <mat-form-field>
-      <input matInput #nameFamily [(ngModel)]="subjectClone.nameFamily" placeholder="Last Name" name="last">
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <input matInput #displayName [(ngModel)]="subjectClone.displayName" placeholder="Display Name" name="display">
+      <input matInput #nameFamily [(ngModel)]="last" placeholder="Last Name" name="last">
     </mat-form-field>
   </div>
   <div>
     <mat-form-field>
-      <input matInput [(ngModel)]="subjectClone.birthdate" [matDatepicker]="picker" placeholder="Birthdate" name="birthdate">
+      <input matInput #displayName [(ngModel)]="display" placeholder="Display Name" name="display">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput [(ngModel)]="birthdate" [matDatepicker]="picker" placeholder="Birthdate" name="birthdate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field>
-      <input matInput type="number" [(ngModel)]="subjectClone.mediaMinutes" placeholder="Default media minutes"
+      <input matInput type="number" [(ngModel)]="mediaMinutes" placeholder="Default media minutes"
              name="mediaMinutes">
     </mat-form-field>
   </div>

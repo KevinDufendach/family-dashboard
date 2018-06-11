@@ -93,16 +93,22 @@ export class PeopleService {
   }
 
   updatePerson(id: string, person: Person): Promise<void> {
-    return this.peopleCollection.doc(id).set(person);
-
-    // return this.peopleRef.update(id, person);
+    // TODO: Remove ID from updating
+    return this.peopleCollection.doc(id).set(this.clean(person));
   }
 
-  checkPeople(): void {
-    this.people.subscribe(data => console.log(data));
-  }
 
-  // removePerson(key: string): Promise<void> {
-  //   return this.peopleRef.remove(key);
-  // }
+  clean<T>(obj: T): T {
+    const copy = Object.assign({}, obj);
+
+    const propNames = Object.getOwnPropertyNames(copy);
+    for (let i = 0; i < propNames.length; i++) {
+      const propName = propNames[i];
+      if (copy[propName] === null || copy[propName] === undefined) {
+        delete copy[propName];
+      }
+    }
+
+    return copy;
+  }
 }

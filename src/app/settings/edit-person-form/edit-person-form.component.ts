@@ -11,8 +11,13 @@ export class EditPersonFormComponent implements OnInit {
   @Input() subject: Person;
   @Input() id?: string;
 
-  subjectClone: Person;
   startDate = new Date(2010, 0, 1);
+
+  first: string;
+  last:  string;
+  display: string;
+  birthdate: Date;
+  mediaMinutes: number;
 
   constructor(private peopleService: PeopleService) {
   }
@@ -22,26 +27,39 @@ export class EditPersonFormComponent implements OnInit {
   }
 
   reset(): void {
-    console.log(this.subject);
-    console.log('Subject class: ' + this.subject.constructor.name);
 
     if (!this.subject) {
       this.subject = {};
     }
 
-    this.subjectClone = Object.create(this.subject);
+    this.first = this.subject.nameGiven;
+    this.last = this.subject.nameFamily;
+    this.display = this.subject.displayName;
+    this.birthdate = this.subject.birthdate;
+    this.mediaMinutes = this.subject.mediaMinutes;
+  }
+
+  save(): void {
+    this.subject.nameGiven = this.first;
+    this.subject.nameFamily = this.last;
+    this.subject.displayName = this.display;
+    this.subject.birthdate = this.birthdate;
+    this.subject.mediaMinutes = this.mediaMinutes;
   }
 
   onSubmit(): void {
-    this.subject = this.subjectClone;
+    this.save();
 
     if (this.hasSubjectKey()) {
+      console.log('attempting to update person:');
+      console.log(this.subject);
+
       this.peopleService.updatePerson(this.id, this.subject);
     } else {
-      this.peopleService.addPerson(this.subject);
-    }
 
-    this.reset();
+      this.peopleService.addPerson(this.subject);
+
+    }
   }
 
   hasSubjectKey(): boolean {

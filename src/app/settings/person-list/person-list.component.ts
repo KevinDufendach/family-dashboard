@@ -13,4 +13,12 @@ export class PersonListComponent implements OnInit {
   ngOnInit() {
   }
 
+  checkPeople(): void {
+    this.peopleService.peopleIds.subscribe(data => {
+      console.log('=========== checking people ==========');
+      console.log(data);
+
+    });
+  }
+
 }
