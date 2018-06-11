@@ -19,23 +19,11 @@ export class PeopleService {
   peopleIds: Observable<PersonId[]>;
 
   constructor(private afAuth: AngularFireAuth, private readonly afs: AngularFirestore) {
-    console.log('loading people service');
-
-    // this.peopleRef = db.list('people');
-    //
-    // this.people = this.peopleRef.snapshotChanges().pipe(
-    //   map(changes =>
-    //     changes.map(c => ({key: c.payload.key, ...c.payload.val()}))
-    //   )
-    // );
-
     // https://github.com/angular/angularfire2/blob/master/docs/firestore/collections.md
     this.afAuth.user.subscribe(
       user => {
         console.log('User: ' + user.uid);
         this.peopleCollection = afs.collection<Person>('users/' + user.uid + '/people');
-
-        console.log('type: ' + this.peopleCollection.constructor.name);
 
         const collection$: Observable<Person[]> = this.peopleCollection.valueChanges();
         collection$.subscribe(data => console.log(data) );
@@ -47,13 +35,8 @@ export class PeopleService {
         // };
         // this.peopleCollection.add(newPerson);
 
-        // this.people = this.peopleCollection.valueChanges();
-        console.log('subscribing to peopleCollection');
-
         this.peopleIds = this.peopleCollection.snapshotChanges().pipe(
           map(actions => actions.map( a => {
-            console.log('received snapshotchanges from peopleCollection');
-
             const data = a.payload.doc.data() as Person;
             const id = a.payload.doc.id;
             return { id, ...data };

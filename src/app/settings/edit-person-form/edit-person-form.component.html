@@ -29,11 +29,11 @@
   </div>
 
   <div *ngIf="hasSubjectKey()">
-    <button type="submit" mat-raised-button class="mat-primary" [disabled]="!editPersonForm.valid">Save</button>
+    <button type="submit" mat-raised-button class="mat-primary">Save</button>
     <button type="button" mat-raised-button (click)="reset()">Cancel</button>
   </div>
   <div *ngIf="!hasSubjectKey()">
-    <button type="submit" mat-raised-button class="mat-primary" [disabled]="!editPersonForm.valid">Submit</button>
+    <button type="submit" mat-raised-button class="mat-primary">Submit</button>
     <button type="button" mat-raised-button (click)="editPersonForm.reset()">Cancel</button>
   </div>
 </form>
