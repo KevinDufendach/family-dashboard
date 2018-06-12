@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/internal/operators';
 import {Person} from './shared/person';
@@ -12,9 +11,6 @@ export interface PersonId extends Person { id: string; }
   providedIn: 'root'
 })
 export class PeopleService {
-  // peopleRef: AngularFireList<Person>;
-  people: Observable<Person[]>;
-
   private peopleCollection: AngularFirestoreCollection<Person>;
   peopleIds: Observable<PersonId[]>;
 
@@ -22,11 +18,11 @@ export class PeopleService {
     // https://github.com/angular/angularfire2/blob/master/docs/firestore/collections.md
     this.afAuth.user.subscribe(
       user => {
-        console.log('User: ' + user.uid);
+        // console.log('User: ' + user.uid);
         this.peopleCollection = afs.collection<Person>('users/' + user.uid + '/people');
 
-        const collection$: Observable<Person[]> = this.peopleCollection.valueChanges();
-        collection$.subscribe(data => console.log(data) );
+        // const collection$: Observable<Person[]> = this.peopleCollection.valueChanges();
+        // collection$.subscribe(data => console.log(data) );
 
         // const newPerson: Person = {
         //   displayName: 'myNewPerson',
@@ -44,8 +40,6 @@ export class PeopleService {
         );
       }
     );
-
-
   }
 
   static createPerson(): Observable<Person> {

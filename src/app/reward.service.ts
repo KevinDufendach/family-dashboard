@@ -1,80 +1,67 @@
-import { Injectable } from '@angular/core';
-import {MediaEvent} from './shared/models';
-import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/internal/operators';
-import {ThenableReference} from 'angularfire2/database-deprecated/interfaces';
+import {MediaEvent} from './shared/media-event';
+import {AngularFireAuth} from 'angularfire2/auth';
+import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+
+export interface MediaEventId extends MediaEvent {
+  id: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class RewardService {
-  eventsRef: AngularFireList<MediaEvent>;
-  events: Observable<any[]>;
+  userId: string;
+
   dateString = '20150525';
+  eventIds: Observable<MediaEventId[]>;
+  events: Observable<MediaEvent[]>;
+  eventList: MediaEvent[] = [
+    {title: 'Hitting', reward: -3},
+    {title: 'Yelling', reward: -3},
+  ];
 
-  children: string[] = [];
-  minutes_count: number[] = [];
+  // children: string[] = [];
+  // minutes_count: number[] = [];
+  private eventCollection: AngularFirestoreCollection<MediaEvent>;
 
-  constructor(private db: AngularFireDatabase) {
-    console.log('reward service starting');
+  constructor(private afAuth: AngularFireAuth, private readonly afs: AngularFirestore) {
+    // https://github.com/angular/angularfire2/blob/master/docs/firestore/collections.md
+    this.afAuth.user.subscribe(
+      user => {
+        this.userId = user.uid;
+        // console.log('User: ' + user.uid);
+        this.eventCollection = this.afs.collection<MediaEvent>('users/' + user.uid + '/dates/' + this.dateString + '/events');
 
-    this.eventsRef = db.list('days/' + this.dateString + '/events');
+        this.events = this.eventCollection.valueChanges();
 
-    // Use snapshotChanges().map() to store the key
-    this.events = this.eventsRef.snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-      )
+        // const newPerson: Person = {
+        //   displayName: 'myNewPerson',
+        //   nameGiven: 'MyFirstName',
+        //   mediaMinutes: 30,
+        // };
+        // this.peopleCollection.add(newPerson);
+
+        this.eventIds = this.eventCollection.snapshotChanges().pipe(
+          map(actions => actions.map(a => {
+            const data = a.payload.doc.data() as MediaEvent;
+            const id = a.payload.doc.id;
+            return {id, ...data};
+          }))
+        );
+      }
     );
-
-    // this.events = this.eventsRef.valueChanges();
-
-    // this.events.subscribe((events) => {
-    //   for (const event of events) {
-    //     console.log(event);
-    //
-    //     if (!this.children.includes(event.child_id)) {
-    //       console.log('adding child ' + event.child_id);
-    //       this.children.push(event.child_id);
-    //
-    //       const child_index = this.children.indexOf(event.child_id);
-    //       this.minutes_count[child_index] = 0;
-    //     }
-    //
-    //     if (event.value_change) {
-    //       this.setMinutes(event.child_id, event.value_change);
-    //     }
-    //   }
-    //
-    //   console.log(this.minutes_count);
-    // });
   }
 
-  getChildren(): string[] {
-    return this.children;
+  getEvents(id: string): Observable<MediaEvent[]> {
+    return this.afs.collection<MediaEvent>(
+      'users/' + this.userId + '/dates/' + this.dateString + '/events',
+        ref => ref.where('subjectId', '==', id)).valueChanges();
   }
 
-  getMinutes(child_id: string): number {
-    return (this.setMinutes(child_id, 0));
-  }
-
-  setMinutes(child_id: string, change_value: number) {
-    const child_index = this.children.indexOf(child_id);
-    if (change_value && change_value !== 0) {
-      this.minutes_count[child_index] += change_value;
-    }
-
-    return (this.minutes_count[child_index]);
-  }
-
-  addEvent(): ThenableReference {
-    const newEvent = new MediaEvent('johnny', 'helpful', 4);
-
-    return this.eventsRef.push(newEvent);
-  }
-
-  getEvents(): Observable<any[]> {
-    return this.events;
+  addEvent(event: MediaEvent) {
+    this.eventCollection.add(event);
   }
 }

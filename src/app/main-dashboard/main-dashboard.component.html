@@ -1,7 +1,7 @@
 <div *ngIf="afAuth.user | async" class="grid-container">
   <mat-grid-list cols="2">
-    <mat-grid-tile *ngFor="let person of peopleService.people | async" [colspan]="2">
-      <app-child-card [child]="person"></app-child-card>
+    <mat-grid-tile *ngFor="let person of peopleService.peopleIds | async" [colspan]="2">
+      <app-child-card [child]="person" [id]="person.id"></app-child-card>
     </mat-grid-tile>
   </mat-grid-list>
 </div>

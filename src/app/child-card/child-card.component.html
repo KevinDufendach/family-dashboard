@@ -1,32 +1,24 @@
-<div fxLayout="row">
-  <div mat-card-avatar><mat-icon>person</mat-icon></div>
-  <div>
-    <h1>{{child.nameGiven}}</h1>
-    <h4>Minutes: {{child.mediaMinutes}}</h4>
-  </div>
-</div>
-
-
-
 <mat-card class="dashboard-card">
-  <div fxLayout="row">
-    <div><mat-icon>person</mat-icon></div>
-    <div>
-      <h1>{{child.nameGiven}}</h1>
-      <h4>Minutes: {{child.mediaMinutes}}</h4>
-    </div>
-  </div>
-
   <mat-card-header>
-    <mat-card-title>{{child.nameGiven}}</mat-card-title>
+    <div mat-card-avatar>
+      <mat-icon>person</mat-icon>
+    </div>
+    <mat-card-title>{{child.nameGiven}} - {{id}}</mat-card-title>
     <mat-card-subtitle>{{child.nameFamily}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="dashboard-card-content">
+    <div fxLayout="row">
+      <button mat-raised-button *ngFor="let event of getEventList()" (click)="addEvent(event)"
+              class="event-button mat-primary">
+        {{event.title}}
+      </button>
+    </div>
+
     <ul>
       <li *ngFor="let day of getEvents() | async">
         <pre>{{ day | json }}</pre>
       </li>
     </ul>
-    <button mat-raised-button (click)="addEvent()">Add Helpful Event</button>
+    <!--<button mat-raised-button (click)="addEvent()">Add Helpful Event</button>-->
   </mat-card-content>
 </mat-card>
