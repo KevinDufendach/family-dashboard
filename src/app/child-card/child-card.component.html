@@ -10,15 +10,24 @@
     <div fxLayout="row">
       <button mat-raised-button *ngFor="let event of getEventList()" (click)="addEvent(event)"
               class="event-button mat-primary">
-        {{event.title}}
+        <div>{{event.title}}</div>
+        <div>[{{event.reward}}]</div>
       </button>
     </div>
 
     <ul>
-      <li *ngFor="let day of getEvents() | async">
-        <pre>{{ day | json }}</pre>
-      </li>
     </ul>
-    <!--<button mat-raised-button (click)="addEvent()">Add Helpful Event</button>-->
+
+    <div *ngIf="events$ | async; let events; else loading">
+      <ul>
+        <li *ngFor="let event of events">
+          {{event.title}} [{{event.reward}}: {{event.subjectId}}]
+        </li>
+      </ul>
+      <div *ngIf="events.length === 0">No results, try clearing filters</div>
+    </div>
+    <ng-template #loading>Loading&hellip;</ng-template>
+
+    <button (click)="getEvents(id)">Get Events</button>
   </mat-card-content>
 </mat-card>

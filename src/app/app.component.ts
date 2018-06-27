@@ -10,7 +10,7 @@ import {MatDialog} from '@angular/material';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Dufendach Family Page';
+  title = 'Dufendach Family Dashboard';
 
   constructor(public afAuth: AngularFireAuth, public dialog: MatDialog) { }
 

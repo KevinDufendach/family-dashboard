@@ -1,9 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RewardService} from '../reward.service';
-import {Observable} from 'rxjs';
 import {Person} from '../shared/person';
 import {MediaEvent} from '../shared/media-event';
-import {Query} from 'angularfire2/firestore';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Component({
   selector: 'app-child-card',
@@ -14,9 +13,15 @@ export class ChildCardComponent implements OnInit {
   @Input() child: Person;
   @Input() id: string;
 
-  constructor(private rewardService: RewardService) { }
+  // events: MediaEvent[];
+  events$: Observable<MediaEvent[]>;
+  idFilter$: BehaviorSubject<string|null>;
+
+  constructor(private rewardService: RewardService) {
+  }
 
   ngOnInit() {
+    // this.getEvents();
   }
 
   getMinutes(child_id: string): number {
@@ -39,7 +44,29 @@ export class ChildCardComponent implements OnInit {
     this.rewardService.addEvent(eventCopy);
   }
 
-  getEvents(): Observable<MediaEvent[]> {
-    return this.rewardService.getEvents(this.id);
+  // getEventsObservable(): Observable<MediaEvent[]> {
+  //   // console.log('attempting to get events for');
+  //   return this.rewardService.getEvents(this.id);
+  // }
+
+  getEvents() {
+    this.idFilter$ = new BehaviorSubject<string|null>(null);
+    this.events$ = this.rewardService.generateEventObservable(this.idFilter$);
+
+
+    this.events$.subscribe(data => {
+      console.log('data retrieved');
+      console.log(data);
+    });
+
+
+    console.log(this.idFilter$);
+
+    this.idFilter$.next(this.id);
+
+    // // console.log('attempting to get events for');
+    // this.rewardService.getEventsById(this.id).subscribe( data => {
+    //   console.log(data);
+    // });
   }
 }
