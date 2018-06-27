@@ -16,6 +16,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {SettingsModule} from './settings/settings.module';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {AngularFireAuthModule} from 'angularfire2/auth';
+import { QueryTrialComponent } from './query-trial/query-trial.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
     AppComponent,
     MainDashboardComponent,
     ChildCardComponent,
+    QueryTrialComponent,
   ],
   entryComponents: [],
   providers: [],
