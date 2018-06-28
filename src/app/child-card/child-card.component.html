@@ -24,7 +24,7 @@
           {{event.title}} [{{event.reward}}: {{event.subjectId}}]
         </li>
       </ul>
-      <div *ngIf="events.length === 0">No results, try clearing filters</div>
+      <div *ngIf="events.length === 0">No events found for today</div>
     </div>
     <ng-template #loading>Loading&hellip;</ng-template>
 
