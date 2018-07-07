@@ -1,33 +1,40 @@
-<mat-card class="dashboard-card">
-  <mat-card-header>
-    <div mat-card-avatar>
+<div class="dashboard-card">
+  <div>
       <mat-icon>person</mat-icon>
-    </div>
-    <mat-card-title>{{child.nameGiven}} - {{id}}</mat-card-title>
-    <mat-card-subtitle>{{child.nameFamily}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content class="dashboard-card-content">
+      <h1>{{child.nameGiven}} - {{id}}</h1>
+      <h2>{{child.nameFamily}}</h2>
+  </div>
+  <div>
     <div fxLayout="row">
-      <button mat-raised-button *ngFor="let event of getEventList()" (click)="addEvent(event)"
-              class="event-button mat-primary">
-        <div>{{event.title}}</div>
-        <div>[{{event.reward}}]</div>
-      </button>
+      <div>
+        <button mat-raised-button *ngFor="let event of getEventList()" (click)="addEvent(event)"
+                class="event-button mat-primary">
+          <div>{{event.title}}</div>
+          <div>[{{event.reward}}]</div>
+        </button>
+
+      </div>
+      <div *ngIf="events$ | async; let events; else loading">
+        <ul>
+          <li *ngFor="let event of events">
+            {{event.title}} [{{event.reward}}: {{event.subjectId}}]
+          </li>
+        </ul>
+        <div *ngIf="events.length === 0">No events found for today</div>
+      </div>
+      <ng-template #loading>Loading&hellip;</ng-template>
     </div>
+  </div>
+</div>
 
-    <ul>
-    </ul>
+<!--<mat-card class="dashboard-card">-->
+  <!--<mat-card-header>-->
+    <!--<div mat-card-avatar>-->
+    <!--</div>-->
+  <!--</mat-card-header>-->
 
-    <div *ngIf="events$ | async; let events; else loading">
-      <ul>
-        <li *ngFor="let event of events">
-          {{event.title}} [{{event.reward}}: {{event.subjectId}}]
-        </li>
-      </ul>
-      <div *ngIf="events.length === 0">No events found for today</div>
-    </div>
-    <ng-template #loading>Loading&hellip;</ng-template>
-
-    <button (click)="getEvents(id)">Get Events</button>
-  </mat-card-content>
-</mat-card>
+  <!--<mat-card-content class="dashboard-card-content">-->
+    <!--<div fxLayout="row">-->
+    <!--</div>-->
+  <!--</mat-card-content>-->
+<!--</mat-card>-->
